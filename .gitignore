@@ -1,6 +1,12 @@
 #*.exe
+
 #*.cache
+
 #**/bin
+
 #**/obj
+
 #*.csproj
+
 #*csproj.user
+#./vs
