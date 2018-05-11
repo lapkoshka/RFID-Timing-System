@@ -33,6 +33,10 @@ namespace RFID_Timing
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.classname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.regTitle = new System.Windows.Forms.Label();
             this.confTitle = new System.Windows.Forms.Label();
@@ -42,21 +46,19 @@ namespace RFID_Timing
             this.raceCount = new System.Windows.Forms.Label();
             this.regButton = new System.Windows.Forms.Button();
             this.mainInfoBox = new System.Windows.Forms.GroupBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.matchName = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.addLaps = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.addInfo = new System.Windows.Forms.Label();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.classname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.addInfo = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.panel3.SuspendLayout();
             this.mainInfoBox.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -81,150 +83,6 @@ namespace RFID_Timing
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(584, 418);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.Location = new System.Drawing.Point(15, 522);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1037, 32);
-            this.panel3.TabIndex = 2;
-            // 
-            // regTitle
-            // 
-            this.regTitle.AutoSize = true;
-            this.regTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.regTitle.Location = new System.Drawing.Point(39, 14);
-            this.regTitle.Name = "regTitle";
-            this.regTitle.Size = new System.Drawing.Size(53, 26);
-            this.regTitle.TabIndex = 3;
-            this.regTitle.Text = "Text";
-            // 
-            // confTitle
-            // 
-            this.confTitle.AutoSize = true;
-            this.confTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.confTitle.Location = new System.Drawing.Point(726, 13);
-            this.confTitle.Name = "confTitle";
-            this.confTitle.Size = new System.Drawing.Size(53, 26);
-            this.confTitle.TabIndex = 4;
-            this.confTitle.Text = "Text";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 107);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "label4";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(20, 272);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(303, 112);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
-            // 
-            // matchTime
-            // 
-            this.matchTime.AutoSize = true;
-            this.matchTime.Location = new System.Drawing.Point(25, 151);
-            this.matchTime.Name = "matchTime";
-            this.matchTime.Size = new System.Drawing.Size(35, 13);
-            this.matchTime.TabIndex = 5;
-            this.matchTime.Text = "label5";
-            // 
-            // raceCount
-            // 
-            this.raceCount.AutoSize = true;
-            this.raceCount.Location = new System.Drawing.Point(26, 178);
-            this.raceCount.Name = "raceCount";
-            this.raceCount.Size = new System.Drawing.Size(35, 13);
-            this.raceCount.TabIndex = 7;
-            this.raceCount.Text = "label6";
-            // 
-            // regButton
-            // 
-            this.regButton.Location = new System.Drawing.Point(81, 398);
-            this.regButton.Name = "regButton";
-            this.regButton.Size = new System.Drawing.Size(179, 39);
-            this.regButton.TabIndex = 9;
-            this.regButton.Text = "button1";
-            this.regButton.UseVisualStyleBackColor = true;
-            // 
-            // mainInfoBox
-            // 
-            this.mainInfoBox.Controls.Add(this.richTextBox2);
-            this.mainInfoBox.Controls.Add(this.matchName);
-            this.mainInfoBox.Controls.Add(this.dateTimePicker1);
-            this.mainInfoBox.Location = new System.Drawing.Point(20, 12);
-            this.mainInfoBox.Name = "mainInfoBox";
-            this.mainInfoBox.Size = new System.Drawing.Size(303, 117);
-            this.mainInfoBox.TabIndex = 10;
-            this.mainInfoBox.TabStop = false;
-            this.mainInfoBox.Text = "mainInfoBox";
-            // 
-            // matchName
-            // 
-            this.matchName.AutoSize = true;
-            this.matchName.Location = new System.Drawing.Point(13, 23);
-            this.matchName.Name = "matchName";
-            this.matchName.Size = new System.Drawing.Size(35, 13);
-            this.matchName.TabIndex = 0;
-            this.matchName.Text = "label3";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(17, 79);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(138, 20);
-            this.dateTimePicker1.TabIndex = 1;
-            // 
-            // addLaps
-            // 
-            this.addLaps.AutoSize = true;
-            this.addLaps.Location = new System.Drawing.Point(26, 205);
-            this.addLaps.Name = "addLaps";
-            this.addLaps.Size = new System.Drawing.Size(35, 13);
-            this.addLaps.TabIndex = 11;
-            this.addLaps.Text = "label7";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.comboBox3);
-            this.panel2.Controls.Add(this.comboBox2);
-            this.panel2.Controls.Add(this.comboBox1);
-            this.panel2.Controls.Add(this.addInfo);
-            this.panel2.Controls.Add(this.addLaps);
-            this.panel2.Controls.Add(this.mainInfoBox);
-            this.panel2.Controls.Add(this.regButton);
-            this.panel2.Controls.Add(this.raceCount);
-            this.panel2.Controls.Add(this.matchTime);
-            this.panel2.Controls.Add(this.richTextBox1);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Location = new System.Drawing.Point(702, 44);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(350, 461);
-            this.panel2.TabIndex = 1;
-            // 
-            // addInfo
-            // 
-            this.addInfo.AutoSize = true;
-            this.addInfo.Location = new System.Drawing.Point(26, 254);
-            this.addInfo.Name = "addInfo";
-            this.addInfo.Size = new System.Drawing.Size(35, 13);
-            this.addInfo.TabIndex = 12;
-            this.addInfo.Text = "label1";
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Location = new System.Drawing.Point(15, 42);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(272, 24);
-            this.richTextBox2.TabIndex = 2;
-            this.richTextBox2.Text = "";
-            this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             // 
             // id
             // 
@@ -251,6 +109,157 @@ namespace RFID_Timing
             this.tag.ReadOnly = true;
             this.tag.Width = 200;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Location = new System.Drawing.Point(15, 522);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1037, 32);
+            this.panel3.TabIndex = 2;
+            // 
+            // regTitle
+            // 
+            this.regTitle.AutoSize = true;
+            this.regTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.regTitle.Location = new System.Drawing.Point(39, 14);
+            this.regTitle.Name = "regTitle";
+            this.regTitle.Size = new System.Drawing.Size(141, 26);
+            this.regTitle.TabIndex = 3;
+            this.regTitle.Text = "Регистрация";
+            // 
+            // confTitle
+            // 
+            this.confTitle.AutoSize = true;
+            this.confTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.confTitle.Location = new System.Drawing.Point(726, 13);
+            this.confTitle.Name = "confTitle";
+            this.confTitle.Size = new System.Drawing.Size(223, 26);
+            this.confTitle.TabIndex = 4;
+            this.confTitle.Text = "Конфигурация гонки";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(23, 107);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "label4";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(20, 272);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(303, 112);
+            this.richTextBox1.TabIndex = 3;
+            this.richTextBox1.Text = "";
+            // 
+            // matchTime
+            // 
+            this.matchTime.AutoSize = true;
+            this.matchTime.Location = new System.Drawing.Point(25, 151);
+            this.matchTime.Name = "matchTime";
+            this.matchTime.Size = new System.Drawing.Size(111, 13);
+            this.matchTime.TabIndex = 5;
+            this.matchTime.Text = "Количество заездов";
+            // 
+            // raceCount
+            // 
+            this.raceCount.AutoSize = true;
+            this.raceCount.Location = new System.Drawing.Point(26, 178);
+            this.raceCount.Name = "raceCount";
+            this.raceCount.Size = new System.Drawing.Size(79, 13);
+            this.raceCount.TabIndex = 7;
+            this.raceCount.Text = "Время заезда";
+            // 
+            // regButton
+            // 
+            this.regButton.Location = new System.Drawing.Point(81, 398);
+            this.regButton.Name = "regButton";
+            this.regButton.Size = new System.Drawing.Size(179, 39);
+            this.regButton.TabIndex = 9;
+            this.regButton.Text = "Завершить регистрацию";
+            this.regButton.UseVisualStyleBackColor = true;
+            // 
+            // mainInfoBox
+            // 
+            this.mainInfoBox.Controls.Add(this.richTextBox2);
+            this.mainInfoBox.Controls.Add(this.matchName);
+            this.mainInfoBox.Controls.Add(this.dateTimePicker1);
+            this.mainInfoBox.Location = new System.Drawing.Point(20, 12);
+            this.mainInfoBox.Name = "mainInfoBox";
+            this.mainInfoBox.Size = new System.Drawing.Size(303, 117);
+            this.mainInfoBox.TabIndex = 10;
+            this.mainInfoBox.TabStop = false;
+            this.mainInfoBox.Text = "Информация";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(15, 42);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(272, 24);
+            this.richTextBox2.TabIndex = 2;
+            this.richTextBox2.Text = "";
+            // 
+            // matchName
+            // 
+            this.matchName.AutoSize = true;
+            this.matchName.Location = new System.Drawing.Point(13, 23);
+            this.matchName.Name = "matchName";
+            this.matchName.Size = new System.Drawing.Size(104, 13);
+            this.matchName.TabIndex = 0;
+            this.matchName.Text = "Имя соревнования";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(17, 79);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(138, 20);
+            this.dateTimePicker1.TabIndex = 1;
+            // 
+            // addLaps
+            // 
+            this.addLaps.AutoSize = true;
+            this.addLaps.Location = new System.Drawing.Point(26, 205);
+            this.addLaps.Name = "addLaps";
+            this.addLaps.Size = new System.Drawing.Size(131, 13);
+            this.addLaps.TabIndex = 11;
+            this.addLaps.Text = "Дополнительных кругов";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.comboBox3);
+            this.panel2.Controls.Add(this.comboBox2);
+            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.addInfo);
+            this.panel2.Controls.Add(this.addLaps);
+            this.panel2.Controls.Add(this.mainInfoBox);
+            this.panel2.Controls.Add(this.regButton);
+            this.panel2.Controls.Add(this.raceCount);
+            this.panel2.Controls.Add(this.matchTime);
+            this.panel2.Controls.Add(this.richTextBox1);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Location = new System.Drawing.Point(702, 44);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(350, 461);
+            this.panel2.TabIndex = 1;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(196, 205);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(127, 21);
+            this.comboBox3.TabIndex = 15;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(196, 178);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(127, 21);
+            this.comboBox2.TabIndex = 14;
+            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
@@ -264,21 +273,24 @@ namespace RFID_Timing
             this.comboBox1.Size = new System.Drawing.Size(127, 21);
             this.comboBox1.TabIndex = 13;
             // 
-            // comboBox2
+            // addInfo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(196, 178);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(127, 21);
-            this.comboBox2.TabIndex = 14;
+            this.addInfo.AutoSize = true;
+            this.addInfo.Location = new System.Drawing.Point(26, 254);
+            this.addInfo.Name = "addInfo";
+            this.addInfo.Size = new System.Drawing.Size(160, 13);
+            this.addInfo.TabIndex = 12;
+            this.addInfo.Text = "Дополнительная информация";
             // 
-            // comboBox3
+            // button1
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(196, 205);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(127, 21);
-            this.comboBox3.TabIndex = 15;
+            this.button1.Location = new System.Drawing.Point(22, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -292,9 +304,9 @@ namespace RFID_Timing
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.mainInfoBox.ResumeLayout(false);
             this.mainInfoBox.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -330,6 +342,7 @@ namespace RFID_Timing
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -7,48 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UHF;
+using System.Diagnostics;
 
 namespace RFID_Timing
 {
     public partial class Form1 : Form
     {
+        DeviceManager manager = new DeviceManager();
+
         public Form1()
         {
             InitializeComponent();
-            EnableForm();
+            manager.connectDevice();
+            manager.tagCatch += manager_tagCatchHandler;
+
+            //TODO: try to fill datagrid from local db
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        static void manager_tagCatchHandler(object sender, TagCatchEventArgs e)
         {
-            
-            //try to connect with device
-            //try to fill datagrid from local db
-
+            RFIDTag tag = e.Tag;
+            Console.WriteLine(tag.UID);
         }
 
-        private void EnableForm()
+        private void button1_Click(object sender, EventArgs e)
         {
-            string lang = "ru";
-            I18n translations = new I18n(lang);
-
-            regTitle.Text = translations.get("reg.regTitle");
-            id.HeaderText = translations.get("reg.idColumnName");
-            name.HeaderText = translations.get("reg.nameColumnName");
-            classname.HeaderText = translations.get("reg.classColumnName");
-            tag.HeaderText = translations.get("reg.tagColumnName");
-            confTitle.Text = translations.get("reg.confTitle");
-            mainInfoBox.Text = translations.get("reg.mainInfoBoxText");
-            matchName.Text = translations.get("reg.matchNameText");
-            matchTime.Text = translations.get("reg.matchTimeText");
-            raceCount.Text = translations.get("reg.raceCountText");
-            addLaps.Text = translations.get("reg.addLapsText");
-            addInfo.Text = translations.get("reg.addInfoText");
-            regButton.Text = translations.get("reg.regButtonText");
+            manager.start();
         }
 
-        private void richTextBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
