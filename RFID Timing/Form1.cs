@@ -19,8 +19,8 @@ namespace RFID_Timing
         public Form1()
         {
             InitializeComponent();
-            manager.connectDevice();
-            manager.tagCatch += manager_tagCatchHandler;
+            manager.ConnectDevice();
+            manager.TagCatch += manager_tagCatchHandler;
 
             //TODO: try to fill datagrid from local db
         }
@@ -33,7 +33,7 @@ namespace RFID_Timing
 
         private void button1_Click(object sender, EventArgs e)
         {
-            manager.start();
+            manager.Start();
         }
 
     }
