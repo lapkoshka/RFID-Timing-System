@@ -1,5 +1,5 @@
 *.cache
-#**/bin
+**/bin
 **/obj
 *.csproj
 *csproj.user
