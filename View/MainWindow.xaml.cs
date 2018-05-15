@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Core;
 
 
-namespace WpfApplication1
+namespace View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
