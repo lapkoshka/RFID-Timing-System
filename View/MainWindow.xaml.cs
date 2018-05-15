@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using UHF;
-using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Core;
 
-namespace RFID_Timing
+
+namespace WpfApplication1
 {
-    public partial class Form1 : Form
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
         DeviceManager manager = new DeviceManager();
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
+            Main.Content = new Registration();
             manager.ConnectDevice();
             manager.TagCatch += manager_tagCatchHandler;
-
-            //TODO: try to fill datagrid from local db
         }
 
         static void manager_tagCatchHandler(object sender, TagCatchEventArgs e)
@@ -30,11 +37,5 @@ namespace RFID_Timing
             RFIDTag tag = e.Tag;
             Console.WriteLine(tag.UID);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            manager.Start();
-        }
-
     }
 }

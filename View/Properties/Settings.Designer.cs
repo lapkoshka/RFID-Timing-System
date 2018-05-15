@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RFID_Timing.Properties
+namespace WpfApplication1.Properties
 {
 
 
