@@ -15,7 +15,23 @@
             <ColumnDefinition Width="381*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" FontSize="22" Margin="15,0,0,567">Регистрация</TextBlock>
-        <DataGrid Grid.Column="0" Grid.Row="0" Margin="15,38,0,78"></DataGrid>
+        <DataGrid Grid.Column="0" Grid.Row="0" Margin="15,38,0,154"></DataGrid>
+        <Button Grid.Column="0" Grid.Row="0" Margin="15,461,0,76" FontSize="16">Начать регистрацию</Button>
+        <GroupBox Header="Portable reader info" Grid.Column="0" Grid.Row="0" Margin="15,529,0,20">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="173*"/>
+                        <ColumnDefinition Width="38*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">Status:</Label>
+                    <Button Grid.Column="1">Reconnect</Button>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        
+        
         <TextBlock Grid.Column="1" Grid.Row="0" FontSize="22" Margin="40,0,10,567"><Run Text="Конфигурация"/></TextBlock>
         <GroupBox Header="Информация" Padding="5"  Grid.Column="1" Grid.Row="0" Margin="40,38,10,428">
             <StackPanel>
@@ -61,6 +77,21 @@
                 <RichTextBox HorizontalAlignment="Right" Block.LineHeight="2" Height="96"/>
             </StackPanel>
         </GroupBox>
-        <Button Grid.Column="1" Grid.Row="0" Margin="54,463,22,78" FontSize="16" Click="Button_Click">Завершить регистрацию</Button>
+        <Button Grid.Column="1" Grid.Row="0" Margin="40,463,10,78" FontSize="16">Завершить регистрацию</Button>
+        
+        <GroupBox Header="Main reader info" Grid.Column="1" Grid.Row="0" Margin="40,529,10,20">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110*"/>
+                        <ColumnDefinition Width="38*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"  Content="{Binding Path=MainReaderStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Grid.Column="1">Reconnect</Button>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
     </Grid>
 </Page>

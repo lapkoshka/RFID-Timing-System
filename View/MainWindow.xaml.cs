@@ -22,20 +22,18 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-        DeviceManager manager = new DeviceManager();
 
         public MainWindow()
         {
             InitializeComponent();
-            Main.Content = new Registration();
-            manager.ConnectDevice();
-            manager.TagCatch += manager_tagCatchHandler;
+           // manager.ConnectDevice();
+           // manager.TagCatch += manager_tagCatchHandler;
         }
 
-        static void manager_tagCatchHandler(object sender, TagCatchEventArgs e)
+        /*static void manager_tagCatchHandler(object sender, TagCatchEventArgs e)
         {
             RFIDTag tag = e.Tag;
             Console.WriteLine(tag.UID);
-        }
+        }*/
     }
 }

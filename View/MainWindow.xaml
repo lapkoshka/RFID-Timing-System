@@ -23,7 +23,7 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
         </Menu>
-        <Frame x:Name="Main" Grid.Row="1"></Frame>
+        <Frame x:Name="Main" Grid.Row="1" Source="RegistrationPage.xaml"></Frame>
     </Grid>
 </Window>
 
