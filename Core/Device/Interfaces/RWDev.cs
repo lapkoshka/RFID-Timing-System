@@ -5,17 +5,6 @@ using System.Runtime.InteropServices;
 
 namespace UHF
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public struct RFIDTag
-    {
-        public byte PacketParam;
-        public byte LEN;
-        public string UID;
-        public byte RSSI;
-        public byte ANT;
-        public Int32 Handles;
-    }
-
     public delegate void RFIDCallBack(IntPtr p, Int32 nEvt);
 
     public static class RWDev

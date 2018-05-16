@@ -9,9 +9,9 @@ using System.Threading;
 using System.Runtime.InteropServices;
 
 
-namespace RFID_Timing
+namespace Core
 {
-    class DeviceManager
+    public class DeviceManager
     {
         private uint Ip = 0;
         private const int MaxSearchAttempts = 5;
@@ -257,6 +257,17 @@ namespace RFID_Timing
             }
         }
 
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RFIDTag
+    {
+        public byte PacketParam;
+        public byte LEN;
+        public string UID;
+        public byte RSSI;
+        public byte ANT;
+        public Int32 Handles;
     }
 }
 

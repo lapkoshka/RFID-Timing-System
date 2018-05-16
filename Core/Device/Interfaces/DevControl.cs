@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
 
-namespace RFID_Timing
+namespace Core
 {
     internal delegate void SearchCallBack(IntPtr dev, IntPtr data);
 

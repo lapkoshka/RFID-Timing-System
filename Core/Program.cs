@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UHF;
 
-namespace RFID_Timing
+namespace Core
 {
-    public class TagCatchEventArgs : EventArgs
+    class Program
     {
-        public RFIDTag Tag { get; set; }
+        static void Main(string[] args)
+        {
+        }
     }
 }
