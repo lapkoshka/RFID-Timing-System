@@ -1,9 +1,9 @@
-﻿<Window x:Class="View.MainWindow"
+﻿<Window x:Class="Presentation.WPF.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:local="clr-namespace:Presentation.WPF.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1070">
     <Grid Margin="0,0,0,2">
@@ -23,7 +23,7 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
         </Menu>
-        <Frame x:Name="Main" Grid.Row="1" Source="RegistrationPage.xaml"></Frame>
+        <Frame x:Name="Main" Grid.Row="1" Content="{Binding ActivePage}"></Frame>
     </Grid>
 </Window>
 

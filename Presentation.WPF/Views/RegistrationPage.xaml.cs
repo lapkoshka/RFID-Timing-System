@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace View
+namespace Presentation.WPF.Views
 {
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class Registration : Page
+    public partial class RegistrationPage : Page
     {
-        public Registration()
+        public RegistrationPage()
         {
             InitializeComponent();
         }
+
+
     }
 }
