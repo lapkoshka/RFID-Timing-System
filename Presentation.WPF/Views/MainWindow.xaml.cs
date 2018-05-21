@@ -13,9 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Core;
+using Presentation.WPF.ViewModels;
 
 
-namespace View
+namespace Presentation.WPF.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,8 +27,9 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
-           // manager.ConnectDevice();
-           // manager.TagCatch += manager_tagCatchHandler;
+            DataContext = new MainViewModel();
+            // manager.ConnectDevice();
+            // manager.TagCatch += manager_tagCatchHandler;
         }
 
         /*static void manager_tagCatchHandler(object sender, TagCatchEventArgs e)
