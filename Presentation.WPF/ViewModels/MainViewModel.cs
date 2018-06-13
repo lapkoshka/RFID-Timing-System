@@ -46,15 +46,10 @@ namespace Presentation.WPF.ViewModels
             mainReader = new MainReader();
             mainReader.StartConnection();
             mainReader.ConnectionStatusHandle += ReaderStatusHandler;
-            //mainReader.TagCatchHandle += TagCatchHandler;
-            //mainReader.StartListening();
-
 
             portableReader = new PortableReader();
             portableReader.StartConnection();
             portableReader.ConnectionStatusHandle += ReaderStatusHandler;
-            //portableReader.TagCatch += TagCatchHandler;
-
         }
 
         public void registrationFinishHandler(object sender, EventArgs e)
@@ -83,8 +78,8 @@ namespace Presentation.WPF.ViewModels
 
                 if (evt.Status == DeviceStatus.CONNECTED)
                 {
-                    //portableReader.TagCatchHandle += TagCatchHandler;
-                    //portableReader.StartListening();
+                    portableReader.TagCatchHandle += TagCatchHandler;
+                    portableReader.StartListening();
                 }
             }
         }

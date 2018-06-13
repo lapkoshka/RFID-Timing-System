@@ -160,7 +160,7 @@ namespace Core
                     frmcomportindex
                 );
 
-                Thread.Sleep(50);
+                Thread.Sleep(5);
             }
         }
 
