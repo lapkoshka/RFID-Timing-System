@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UHF;
 using System.Net;
+using Core.Helpers;
 
 namespace Core
 {
@@ -17,34 +18,19 @@ namespace Core
 
         public DeviceType Type { get; set; }
 
-        public string getHumanReadableIp()
+        public string GetHumanReadableIp()
         {
             return $"IP: {IPAddress.Parse(Ip.ToString()).ToString()}";
         }
 
-        public string getConnectionPort()
+        public string GetConnectionPort()
         {
             return $"PORT: {ComPort}";
         }
 
-        public string getStatusDescription()
+        public string GetStatusDescription()
         {
-            switch (Status) {
-                case DeviceStatus.SEARCHING:
-                    return "Searching...";
-                case DeviceStatus.FOUND:
-                    return "Reader found";
-                case DeviceStatus.NOT_FOUND:
-                    return "Reader does not found";
-                case DeviceStatus.TRYING_CONNECT:
-                    return "Trying connect to reader...";
-                case DeviceStatus.CONNECTED:
-                    return "Connected";
-                case DeviceStatus.NOT_CONNECTED:
-                    return "Does not connected to reader";
-                default:
-                    return "Something went wrong!";
-            }
+            return Status.GetDescription();
         }
     }
 }
