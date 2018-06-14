@@ -57,6 +57,7 @@
     <Compile Include="Device\PortableReader.cs" />
     <Compile Include="Events\ConnectionStatus.cs" />
     <Compile Include="Events\TagCatch.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Device\Classes\RWDev.cs" />

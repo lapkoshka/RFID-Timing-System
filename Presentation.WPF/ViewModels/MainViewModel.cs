@@ -61,8 +61,8 @@ namespace Presentation.WPF.ViewModels
         {
             if (evt.Type == DeviceType.MAIN)
             {
-                _registrationViewModel.MainReaderStatus = evt.getStatusDescription();
-                _registrationViewModel.MainReaderIp = evt.getHumanReadableIp();
+                _registrationViewModel.MainReaderStatus = evt.GetStatusDescription();
+                _registrationViewModel.MainReaderIp = evt.GetHumanReadableIp();
 
                 if (evt.Status == DeviceStatus.CONNECTED)
                 {
@@ -73,8 +73,8 @@ namespace Presentation.WPF.ViewModels
 
             if (evt.Type == DeviceType.PORTABLE)
             {
-                _registrationViewModel.PortableReaderStatus = evt.getStatusDescription();
-                _registrationViewModel.PortableReaderPort = evt.getConnectionPort();
+                _registrationViewModel.PortableReaderStatus = evt.GetStatusDescription();
+                _registrationViewModel.PortableReaderPort = evt.GetConnectionPort();
 
                 if (evt.Status == DeviceStatus.CONNECTED)
                 {

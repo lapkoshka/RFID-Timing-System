@@ -5,9 +5,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace Core
 {
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RFIDTag
+    {
+        public byte PacketParam;
+        public byte LEN;
+        public string UID;
+        public byte RSSI;
+        public byte ANT;
+        public Int32 Handles;
+    }
+
+    public enum DeviceType : uint
+    {
+        OTHER = 0x01,
+        MAIN = 0x02,
+        PORTABLE = 0x03
+    }
+
+    public enum DeviceStatus : uint
+    {
+        [Description("Searching...")]
+        SEARCHING = 0x01,
+
+        [Description("Reader does not found")]
+        NOT_FOUND = 0x02,
+
+        [Description("Reader found")]
+        FOUND = 0x03,
+
+        [Description("Trying connect to reader...")]
+        TRYING_CONNECT = 0x04,
+
+        [Description("Connected")]
+        CONNECTED = 0x05,
+
+        [Description("Does not connected to reader")]
+        NOT_CONNECTED = 0x06
+    }
+
     public abstract class DeviceManagerBase
     {
         public event EventHandler<TagCatchEventArgs> TagCatchHandle;
@@ -42,33 +82,5 @@ namespace Core
         {
             ConnectionStatusHandle(this, e);
         }
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct RFIDTag
-    {
-        public byte PacketParam;
-        public byte LEN;
-        public string UID;
-        public byte RSSI;
-        public byte ANT;
-        public Int32 Handles;
-    }
-
-    public enum DeviceType : uint
-    {
-        OTHER = 0x01,
-        MAIN = 0x02,
-        PORTABLE = 0x03
-    }
-
-    public enum DeviceStatus : uint
-    {
-        SEARCHING = 0x01,
-        NOT_FOUND = 0x02,
-        FOUND = 0x03,
-        TRYING_CONNECT = 0x04,
-        CONNECTED = 0x05,
-        NOT_CONNECTED = 0x06
     }
 }
