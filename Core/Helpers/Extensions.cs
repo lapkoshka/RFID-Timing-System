@@ -18,7 +18,7 @@ namespace Core.Helpers
         public static string GetDescription(this Enum source)
         {
             FieldInfo fi = source.GetType().GetField(source.ToString());
-            if(fi != null)
+            if (fi != null)
             {
                 DescriptionAttribute attribute = fi.GetCustomAttribute(typeof(DescriptionAttribute), false) as DescriptionAttribute;
                 return attribute.Description;

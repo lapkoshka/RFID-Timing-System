@@ -8,10 +8,20 @@ using System.Diagnostics;
 
 namespace Core
 {
+
+    public enum BaudRate : byte
+    {
+        BPS_9600 = 0,
+        BPS_19200 = 1,
+        BPS_38400 = 2,
+        BPS_57600 = 3,
+        BPS_115200 = 4
+    }
+
     public class PortableReader : DeviceManagerBase
     {
         private DeviceType _deviceType = DeviceType.PORTABLE;
-        public override DeviceType deviceType
+        public override DeviceType DeviceType
         {
             get { return _deviceType; }
         }
@@ -31,6 +41,7 @@ namespace Core
             DeviceStatus status = OpenResult == 0 ?
                 DeviceStatus.CONNECTED : DeviceStatus.NOT_FOUND;
 
+            //TODO: 
             //fCmdRet = StaticClassReaderB.GetReaderInformation(ref fComAdr, VersionInfo, ref ReaderType, TrType, ref dmaxfre, ref dminfre, ref powerdBm, ref ScanTime, frmcomportindex);
             DispatchStatus(status);
         }
@@ -80,19 +91,8 @@ namespace Core
             {
                 Status = status,
                 ComPort = "TODO: COM PORT",
-                Type = this.deviceType
+                Type = this.DeviceType
             });
         }
-
-        /*
-        public enum BaudRate : byte
-        {
-            BPS_9600 = 0,
-            BPS_19200 = 1,
-            BPS_38400 = 2,
-            BPS_57600 = 3,
-            BPS_115200 = 4
-        }
-        */
     }
 }

@@ -55,7 +55,7 @@ namespace Core
         public const int MaxSearchAttempts = 5;
         public const int MaxConnectAttempts = 5;
         public bool ShouldListenReader = true;
-        public abstract DeviceType deviceType { get; }
+        public abstract DeviceType DeviceType { get; }
 
         public void StartConnection()
         {
@@ -75,12 +75,18 @@ namespace Core
 
         protected void TagCatch(TagCatchEventArgs e)
         {
-            TagCatchHandle(this, e);
+            if (TagCatchHandle != null)
+            {
+                TagCatchHandle(this, e);
+            }
         }
 
         protected void ConnectionStatus(ConnectionStatusEventArgs e)
         {
-            ConnectionStatusHandle(this, e);
+            if (ConnectionStatusHandle != null)
+            {
+                ConnectionStatusHandle(this, e);
+            }
         }
     }
 }

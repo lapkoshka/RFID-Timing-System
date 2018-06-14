@@ -13,7 +13,7 @@ namespace Core
     public class MainReader : DeviceManagerBase
     {
         private DeviceType _deviceType = DeviceType.MAIN;
-        public override DeviceType deviceType
+        public override DeviceType DeviceType
         {
             get { return _deviceType; }
         }
@@ -56,7 +56,7 @@ namespace Core
         public override void DispatchStatus(DeviceStatus status)
         {
             ConnectionStatus(new ConnectionStatusEventArgs() {
-                Status = status, Ip = this.Ip, Type = this.deviceType
+                Status = status, Ip = this.Ip, Type = this.DeviceType
             });
         }
 
