@@ -12,6 +12,7 @@ namespace Presentation.WPF.ViewModels
     public class RegistrationViewModel : ObservableObject
     {
 
+        public event EventHandler RegistrationFinish;
 
         #region Properties
 
@@ -45,6 +46,66 @@ namespace Presentation.WPF.ViewModels
             }
         }
 
+        private string _mainReaderStatus;
+        public string MainReaderStatus
+        {
+            get { return _mainReaderStatus; }
+            set
+            {
+                if (_mainReaderStatus != value)
+                {
+                    OnPropertyChanging(() => MainReaderStatus);
+                    _mainReaderStatus = value;
+                    OnPropertyChanged(() => MainReaderStatus);
+                }
+            }
+        }
+
+        private string _mainReaderIp;
+        public string MainReaderIp
+        {
+            get { return _mainReaderIp; }
+            set
+            {
+                if (_mainReaderIp != value)
+                {
+                    OnPropertyChanging(() => MainReaderIp);
+                    _mainReaderIp = value;
+                    OnPropertyChanged(() => MainReaderIp);
+                }
+            }
+        }
+
+        private string _portableReaderStatus;
+        public string PortableReaderStatus
+        {
+            get { return _portableReaderStatus; }
+            set
+            {
+                if (_portableReaderStatus != value)
+                {
+                    OnPropertyChanging(() => PortableReaderStatus);
+                    _portableReaderStatus = value;
+                    OnPropertyChanged(() => PortableReaderStatus);
+                }
+            }
+        }
+
+        private string _portableReaderPort;
+        public string PortableReaderPort
+        {
+            get { return _portableReaderPort; }
+            set
+            {
+                if (_portableReaderPort != value)
+                {
+                    OnPropertyChanging(() => PortableReaderPort);
+                    _portableReaderPort = value;
+                    OnPropertyChanged(() => PortableReaderPort);
+                }
+            }
+        }
+
         public ICommand CompleteRegistration { get; set; }
 
         #endregion
@@ -64,8 +125,8 @@ namespace Presentation.WPF.ViewModels
         }
         private void CompleteRegistrationExecute(object param)
         {
-            //выполни комманду
-            Console.WriteLine("Регистрация на соревнование '{0}' на '{1}' зевeршена", ChallengeName, ChallengeDate);
+            EventArgs e = new EventArgs();
+            RegistrationFinish(this, e);
         }
       
 

@@ -17,21 +17,49 @@
         <TextBlock Grid.Column="0" Grid.Row="0" FontSize="22" Margin="15,0,0,567">Регистрация</TextBlock>
         <DataGrid Grid.Column="0" Grid.Row="0" Margin="15,38,0,154"></DataGrid>
         <Button Grid.Column="0" Grid.Row="0" Margin="15,461,0,76" FontSize="16">Начать регистрацию</Button>
-        <GroupBox Header="Portable reader info" Grid.Column="0" Grid.Row="0" Margin="15,529,0,20">
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="173*"/>
-                        <ColumnDefinition Width="38*"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="150*"/>
 
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0">Status:</Label>
-                    <Button Grid.Column="1">Reconnect</Button>
-                </Grid>
-            </StackPanel>
-        </GroupBox>
-        
-        
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Main reader info" Grid.Column="0" Grid.Row="0" Margin="15,529,15,20">
+
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="65*"/>
+                            <ColumnDefinition Width="72*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Column="0" Fill="{Binding MainReaderStatusColor}" HorizontalAlignment="Left" Height="9"  VerticalAlignment="Top" Width="9" Margin="3,9,0,-7"/>
+                        <Label Grid.Column="1"  Content="{Binding Path=MainReaderStatus, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
+                        <Label Grid.Column="2"  Content="{Binding Path=MainReaderIp, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,1"/>
+
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Portable reader info" Grid.Column="1" Grid.Row="0" Margin="15,529,0,20">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="135*"/>
+                            <ColumnDefinition Width="152*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Column="0" Fill="{Binding MainReaderStatusColor}" HorizontalAlignment="Left" Height="9"  VerticalAlignment="Top" Width="9" Margin="3,9,0,-7"/>
+                        <Label Grid.Column="1"  Content="{Binding Path=PortableReaderStatus, UpdateSourceTrigger=PropertyChanged}" Margin="10,0"/>
+                        <Label Grid.Column="2"  Content="{Binding Path=PortableReaderPort, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,1"/>
+
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+
+
         <TextBlock Grid.Column="1" Grid.Row="0" FontSize="22" Margin="40,0,10,567"><Run Text="Конфигурация"/></TextBlock>
         <GroupBox Header="Информация" Padding="5"  Grid.Column="1" Grid.Row="0" Margin="40,38,10,428">
             <StackPanel>
@@ -84,20 +112,5 @@
                 Command="{Binding Path=CompleteRegistration}" CommandParameter="{Binding}">
             Завершить регистрацию
         </Button>
-        
-        <GroupBox Header="Main reader info" Grid.Column="1" Grid.Row="0" Margin="40,529,10,20">
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="110*"/>
-                        <ColumnDefinition Width="38*"/>
-
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0"  Content="{Binding Path=MainReaderStatus, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Grid.Column="1">Reconnect</Button>
-                </Grid>
-            </StackPanel>
-        </GroupBox>
-
     </Grid>
 </Page>

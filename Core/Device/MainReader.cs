@@ -2,56 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Net;
 using UHF;
-using System.Threading;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
-
 
 namespace Core
 {
-    public class DeviceManager
+    public class MainReader : DeviceManagerBase
     {
-        private uint Ip = 0;
-        private const int MaxSearchAttempts = 5;
-        private const int MaxConnectAttempts = 5;
-
-        public event EventHandler<TagCatchEventArgs> TagCatch;
-
-        public void ConnectDevice()
+        private DeviceType _deviceType = DeviceType.MAIN;
+        public override DeviceType DeviceType
         {
-            ThreadPool.QueueUserWorkItem(SearchAndConnect);
+            get { return _deviceType; }
         }
 
-        private void SearchAndConnect(Object StateInfo)
+        private uint Ip = 0;
+        private static IntPtr oldWndProc = IntPtr.Zero;
+        private RFIDCallBack delegateRFIDCallBack;
+
+        public override void SearchAndConnect(Object StateInfo)
         {
             //TODO: Change Console.WriteLine to WriteLog.
             bool IsFound = false;
             int SearchAttempts = MaxSearchAttempts;
             while (!IsFound && SearchAttempts > 0)
             {
-                Console.WriteLine("SEARCH..");
+                DispatchStatus(DeviceStatus.SEARCHING);
                 IsFound = StartBroadcast();
                 SearchAttempts--;
             }
 
             if (!IsFound)
             {
-                Console.WriteLine("DOES NOT FOUND");
+                DispatchStatus(DeviceStatus.NOT_FOUND);
                 return;
             }
 
-            Console.WriteLine("FOUND");
+            DispatchStatus(DeviceStatus.FOUND);
             bool IsConnected = false;
             int ConnectAttempts = MaxConnectAttempts;
             while (!IsConnected && ConnectAttempts > 0)
             {
-                Console.WriteLine("TRY TO CONNECT");
+                DispatchStatus(DeviceStatus.TRYING_CONNECT);
                 IsConnected = Connect();
                 ConnectAttempts--;
             }
-            Console.WriteLine(IsConnected ? "CONNECTED" : "DOES NOT CONNECTED");
+            DeviceStatus status = IsConnected ? DeviceStatus.CONNECTED : DeviceStatus.NOT_CONNECTED;
+            DispatchStatus(status);
+        }
+
+        public override void DispatchStatus(DeviceStatus status)
+        {
+            ConnectionStatus(new ConnectionStatusEventArgs() {
+                Status = status, Ip = this.Ip, Type = this.DeviceType
+            });
         }
 
         private bool StartBroadcast()
@@ -86,8 +92,8 @@ namespace Core
                 OpenNetPort(nPort, ipAddress, ref fComAdr, ref FrmPortIndex);
             if (fCmdRet == 0)
             {
-                RWDev.InitRFIDCallBack(
-                    new RFIDCallBack(RFIDTagCallback), true, FrmPortIndex);
+                delegateRFIDCallBack = new RFIDCallBack(RFIDTagCallback);
+                RWDev.InitRFIDCallBack(delegateRFIDCallBack, true, FrmPortIndex);
                 return true;
             }
             else
@@ -100,19 +106,12 @@ namespace Core
         protected virtual void RFIDTagCallback(IntPtr p, Int32 nEvt)
         {
             RFIDTag rfidTag = (RFIDTag)Marshal.PtrToStructure(p, typeof(RFIDTag));
-
-            TagCatchEventArgs e = new TagCatchEventArgs(){ Tag = rfidTag };
-            TagCatch(this, e);
+            TagCatch(new TagCatchEventArgs() { Tag = rfidTag });
         }
 
-        public void Start()
+        public override void ListenReader(Object StateInfo)
         {
-            ThreadPool.QueueUserWorkItem(ListenReader);
-        }
-
-        private void ListenReader(Object StateInfo)
-        {
-            while (true)
+            while (this.ShouldListenReader)
             {
                 byte fComAdr = 0;
                 // Multiply query parameters.
@@ -256,18 +255,6 @@ namespace Core
                     return "";
             }
         }
-
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct RFIDTag
-    {
-        public byte PacketParam;
-        public byte LEN;
-        public string UID;
-        public byte RSSI;
-        public byte ANT;
-        public Int32 Handles;
     }
 }
 
