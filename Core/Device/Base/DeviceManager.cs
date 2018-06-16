@@ -24,7 +24,6 @@ namespace Core
         public abstract void StartConnecting();
     }
 
-
     [StructLayout(LayoutKind.Sequential)]
     public struct RFIDTag
     {
@@ -34,5 +33,6 @@ namespace Core
         public byte RSSI;
         public byte ANT;
         public Int32 Handles;
+
     }
 }

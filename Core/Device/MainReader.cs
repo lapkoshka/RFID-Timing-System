@@ -14,7 +14,6 @@ namespace Core
     {
         public override event ConnectionStatusDelegate ConnectionStatusEvent;
         public override event TagCatchDelegate TagCatchEvent;
-
         private RFIDCallBack _delegateRFIDCallBack;
 
         public MainReader()

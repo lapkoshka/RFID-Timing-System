@@ -20,7 +20,7 @@ namespace Core.Helpers
             }
 
             FieldInfo fi = source.GetType().GetField(source.ToString());
-            if(fi != null)
+            if (fi != null)
             {
                 DescriptionAttribute attribute = fi.GetCustomAttribute(typeof(DescriptionAttribute), false) as DescriptionAttribute;
                 return attribute.Description;

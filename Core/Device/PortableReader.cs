@@ -29,7 +29,6 @@ namespace Core
                 byte BaudRate = 5;//(byte)BaudRate.BPS_57600
                 int OpenResult = ReaderB.StaticClassReaderB.AutoOpenComPort(ref port, ref _comAdr, BaudRate, ref _comPortIndex);
                 DeviceStatus status = OpenResult == 0 ? DeviceStatus.Connected : DeviceStatus.NotFound;
-
                 //fCmdRet = StaticClassReaderB.GetReaderInformation(ref fComAdr, VersionInfo, ref ReaderType, TrType, ref dmaxfre, ref dminfre, ref powerdBm, ref ScanTime, frmcomportindex);
                 DispatchStatus(status);
             });
