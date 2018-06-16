@@ -12,12 +12,12 @@ namespace Presentation.WPF.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        MainReader mainReader;
-        DeviceManagerBase portableReader;
+        private MainReader _mainReader;
+        private PortableReader _portableReader;
         private RegistrationViewModel _registrationViewModel;
         private RegistrationPage _registrationPage;
-
         private Page _activePage;
+
         public Page ActivePage
         {
             get { return _activePage; }
@@ -32,7 +32,6 @@ namespace Presentation.WPF.ViewModels
             }
         }
 
-
         public MainViewModel()
         {
             //Инициализация вьюх и моделей
@@ -43,13 +42,13 @@ namespace Presentation.WPF.ViewModels
             //Меняй это поле для навигации
             ActivePage = _registrationPage;
 
-            mainReader = new MainReader();
-            mainReader.StartConnection();
-            mainReader.ConnectionStatusHandle += ReaderStatusHandler;
+            _mainReader = new MainReader();
+            _mainReader.ConnectionStatusEvent += ReaderStatusHandler;
+            _mainReader.StartConnection();
 
-            portableReader = new PortableReader();
-            portableReader.StartConnection();
-            portableReader.ConnectionStatusHandle += ReaderStatusHandler;
+            _portableReader = new PortableReader();
+            _portableReader.ConnectionStatusEvent += ReaderStatusHandler;
+            _portableReader.StartConnection();
         }
 
         public void registrationFinishHandler(object sender, EventArgs e)
@@ -57,36 +56,36 @@ namespace Presentation.WPF.ViewModels
             
         }
 
-        public void ReaderStatusHandler(object sender, ConnectionStatusEventArgs evt)
+        public void ReaderStatusHandler(ConnectionStatusEventArgs args)
         {
-            if (evt.Type == DeviceType.MAIN)
+            if (args.Type == DeviceType.MAIN)
             {
-                _registrationViewModel.MainReaderStatus = evt.GetStatusDescription();
-                _registrationViewModel.MainReaderIp = evt.GetHumanReadableIp();
+                _registrationViewModel.MainReaderStatus = args.GetStatusDescription();
+                _registrationViewModel.MainReaderIp = args.GetHumanReadableIp();
 
-                if (evt.Status == DeviceStatus.CONNECTED)
+                if (args.Status == DeviceStatus.Connected)
                 {
-                    mainReader.TagCatchHandle += TagCatchHandler;
-                    mainReader.StartListening();
+                    _mainReader.TagCatchEvent += TagCatchHandler;
+                    _mainReader.StartListening();
                 }
             }
 
-            if (evt.Type == DeviceType.PORTABLE)
+            if (args.Type == DeviceType.PORTABLE)
             {
-                _registrationViewModel.PortableReaderStatus = evt.GetStatusDescription();
-                _registrationViewModel.PortableReaderPort = evt.GetConnectionPort();
+                _registrationViewModel.PortableReaderStatus = args.GetStatusDescription();
+                _registrationViewModel.PortableReaderPort = args.GetConnectionPort();
 
-                if (evt.Status == DeviceStatus.CONNECTED)
+                if (args.Status == DeviceStatus.Connected)
                 {
-                    portableReader.TagCatchHandle += TagCatchHandler;
-                    portableReader.StartListening();
+                    _portableReader.TagCatchEvent += TagCatchHandler;
+                    _portableReader.StartListening();
                 }
             }
         }
 
-        public void TagCatchHandler(object sender, TagCatchEventArgs e)
+        public void TagCatchHandler(TagCatchEventArgs args)
         {
-            RFIDTag tag = e.Tag;
+            RFIDTag tag = args.Tag;
             Console.WriteLine(tag.UID);
         }
     }

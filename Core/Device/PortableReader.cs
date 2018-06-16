@@ -1,98 +1,81 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UHF;
 using System.Threading;
-using System.Diagnostics;
+using Core.Interfaces;
+using Core.Helpers;
+using System.Threading.Tasks;
 
 namespace Core
 {
     public class PortableReader : DeviceManagerBase
     {
-        private DeviceType _deviceType = DeviceType.PORTABLE;
-        public override DeviceType deviceType
+        public override event ConnectionStatusDelegate ConnectionStatusEvent;
+        public override event TagCatchDelegate TagCatchEvent;
+        private byte _comAdr = 255;
+        private int _comPortIndex = 0;
+
+        public PortableReader()
         {
-            get { return _deviceType; }
+            TypeDevice = DeviceType.PORTABLE;
         }
 
-        private byte ComAdr = 255;
-        private int ComPortIndex = 0;
-
-        public override void SearchAndConnect(Object StateInfo)
+        public override void StartConnecting()
         {
-            DispatchStatus(DeviceStatus.SEARCHING);
-
-            int port = 0;
-            //Как мне использовать говорящие значения из енама?
-            byte BaudRate = 5;//(byte)BaudRate.BPS_57600
-            int OpenResult = ReaderB.StaticClassReaderB.AutoOpenComPort(
-                ref port, ref ComAdr, BaudRate, ref ComPortIndex);
-            DeviceStatus status = OpenResult == 0 ?
-                DeviceStatus.CONNECTED : DeviceStatus.NOT_FOUND;
-
-            //fCmdRet = StaticClassReaderB.GetReaderInformation(ref fComAdr, VersionInfo, ref ReaderType, TrType, ref dmaxfre, ref dminfre, ref powerdBm, ref ScanTime, frmcomportindex);
-            DispatchStatus(status);
-        }
-
-        public override void ListenReader(Object StateInfo)
-        {
-            while (this.ShouldListenReader)
+            Task.Factory.StartNew(() =>
             {
-                byte AdrTID = 0;
-                byte LenTID = 0;
-                byte TIDFlag = 0;
-                byte[] EPC = new byte[5000];
-                int TotalLen = 0;
-                int CardNum = 0;
-                int InventoryResponse = ReaderB.StaticClassReaderB.Inventory_G2(
-                    ref ComAdr, AdrTID, LenTID, TIDFlag, EPC, ref TotalLen, ref CardNum, ComPortIndex);
-                if (InventoryResponse == 1)
-                {
-                    RFIDTag tag = BuildEPCTagFromBytes(TotalLen, EPC);
-                    TagCatch(new TagCatchEventArgs() { Tag = tag });
-                }
+                DispatchStatus(DeviceStatus.Searching);
 
-                //TODO: throttler
-                Thread.Sleep(1000);
-            }
+                int port = 0;
+                //Как мне использовать говорящие значения из енама?
+                byte BaudRate = 5;//(byte)BaudRate.BPS_57600
+                int OpenResult = ReaderB.StaticClassReaderB.AutoOpenComPort(ref port, ref _comAdr, BaudRate, ref _comPortIndex);
+                DeviceStatus status = OpenResult == 0 ? DeviceStatus.Connected : DeviceStatus.NotFound;
+
+                //fCmdRet = StaticClassReaderB.GetReaderInformation(ref fComAdr, VersionInfo, ref ReaderType, TrType, ref dmaxfre, ref dminfre, ref powerdBm, ref ScanTime, frmcomportindex);
+                DispatchStatus(status);
+            });
+        }
+
+        public override void StartListening()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                while (_shouldListenReader)
+                {
+                    byte AdrTID = 0;
+                    byte LenTID = 0;
+                    byte TIDFlag = 0;
+                    byte[] EPC = new byte[5000];
+                    int TotalLen = 0;
+                    int CardNum = 0;
+                    int InventoryResponse = ReaderB.StaticClassReaderB.Inventory_G2(ref _comAdr, AdrTID, LenTID, TIDFlag, EPC, ref TotalLen, ref CardNum, _comPortIndex);
+                    if (InventoryResponse == 1)
+                    {
+                        RFIDTag tag = BuildEPCTagFromBytes(TotalLen, EPC);
+                        TagCatchEvent?.Invoke(new TagCatchEventArgs
+                        {
+                            Tag = tag
+                        });
+                    }
+                }
+            });
         }
 
         private RFIDTag BuildEPCTagFromBytes(int TotalLen, byte[] EPC)
         {
             byte[] daw = new byte[TotalLen];
             Array.Copy(EPC, daw, TotalLen);
-            string sEPC = ByteArrayToHexString(daw).Substring(0 * 2 + 2, daw[0] * 2);
+            string sEPC = daw.ToHexString().Substring(0 * 2 + 2, daw[0] * 2);
             return new RFIDTag() { UID = sEPC };
-        }
-
-        private string ByteArrayToHexString(byte[] data)
-        {
-            StringBuilder sb = new StringBuilder(data.Length * 3);
-            foreach (byte b in data)
-                sb.Append(Convert.ToString(b, 16).PadLeft(2, '0'));
-            return sb.ToString().ToUpper();
         }
 
         public override void DispatchStatus(DeviceStatus status)
         {
-            ConnectionStatus(new ConnectionStatusEventArgs()
+            ConnectionStatusEvent?.Invoke(new ConnectionStatusEventArgs
             {
                 Status = status,
                 ComPort = "TODO: COM PORT",
-                Type = this.deviceType
+                Type = TypeDevice
             });
         }
-
-        /*
-        public enum BaudRate : byte
-        {
-            BPS_9600 = 0,
-            BPS_19200 = 1,
-            BPS_38400 = 2,
-            BPS_57600 = 3,
-            BPS_115200 = 4
-        }
-        */
     }
 }
