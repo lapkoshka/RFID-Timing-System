@@ -9,9 +9,9 @@ namespace Core
         public abstract event ConnectionStatusDelegate ConnectionStatusEvent;
         public abstract event TagCatchDelegate TagCatchEvent;
 
-        public readonly int _maxSearchAttempts = 5;
-        public readonly int _maxConnectAttempts = 5;
-        public bool _shouldListenReader = true;
+        public readonly int maxSearchAttempts = 5;
+        public readonly int maxConnectAttempts = 5;
+        public bool shouldListenReader = true;
 
         public uint Ip { get; protected set; }
 

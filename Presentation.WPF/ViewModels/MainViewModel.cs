@@ -44,11 +44,11 @@ namespace Presentation.WPF.ViewModels
 
             _mainReader = new MainReader();
             _mainReader.ConnectionStatusEvent += ReaderStatusHandler;
-            _mainReader.StartConnection();
+            _mainReader.StartConnecting();
 
             _portableReader = new PortableReader();
             _portableReader.ConnectionStatusEvent += ReaderStatusHandler;
-            _portableReader.StartConnection();
+            _portableReader.StartListening();
         }
 
         public void registrationFinishHandler(object sender, EventArgs e)
