@@ -39,7 +39,7 @@ namespace Core
         {
             Task.Factory.StartNew(() =>
             {
-                while (_shouldListenReader)
+                while (shouldListenReader)
                 {
                     byte AdrTID = 0;
                     byte LenTID = 0;

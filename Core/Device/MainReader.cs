@@ -27,7 +27,7 @@ namespace Core
             Task.Factory.StartNew(() =>
             {
                 bool IsFound = false;
-                int SearchAttempts = _maxSearchAttempts;
+                int SearchAttempts = maxSearchAttempts;
                 while (!IsFound && SearchAttempts > 0)
                 {
                     DispatchStatus(DeviceStatus.Searching);
@@ -43,7 +43,7 @@ namespace Core
 
                 DispatchStatus(DeviceStatus.Found);
                 bool IsConnected = false;
-                int ConnectAttempts = _maxConnectAttempts;
+                int ConnectAttempts = maxConnectAttempts;
                 while (!IsConnected && ConnectAttempts > 0)
                 {
                     DispatchStatus(DeviceStatus.TryingConnect);
@@ -59,7 +59,7 @@ namespace Core
         {
             Task.Factory.StartNew(() =>
             {
-                while (_shouldListenReader)
+                while (shouldListenReader)
                 {
                     byte fComAdr = 0;
                     // Multiply query parameters.
