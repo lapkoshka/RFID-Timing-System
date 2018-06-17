@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Helpers
 {
@@ -17,6 +14,11 @@ namespace Core.Helpers
         /// <returns>Описание поля</returns>
         public static string GetDescription(this Enum source)
         {
+            if(source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
             FieldInfo fi = source.GetType().GetField(source.ToString());
             if (fi != null)
             {
@@ -27,6 +29,22 @@ namespace Core.Helpers
             {
                 throw new ArgumentNullException("fi");
             }
+        }
+
+        /// <summary>
+        /// Преобразование массива байтов в HEX строку
+        /// </summary>
+        /// <param name="source">Массив байтов</param>
+        /// <returns>HEX строка</returns>
+        public static string ToHexString(this byte[] source)
+        {
+            StringBuilder sb = new StringBuilder(source.Length * 3);
+            foreach (byte b in source)
+            {
+                sb.Append(Convert.ToString(b, 16).PadLeft(2, '0'));
+            }
+
+            return sb.ToString().ToUpper();
         }
     }
 }

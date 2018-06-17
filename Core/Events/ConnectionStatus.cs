@@ -12,6 +12,7 @@ namespace Core
     public class ConnectionStatusEventArgs : EventArgs
     {
         public DeviceStatus Status { get; set; }
+
         public uint Ip { get; set; }
 
         public string ComPort { get; set; }
