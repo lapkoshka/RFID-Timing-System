@@ -72,7 +72,8 @@ namespace Core
             ConnectionStatusEvent?.Invoke(new ConnectionStatusEventArgs
             {
                 Status = status,
-                ComPort = "TODO: COM PORT",
+                //TODO: ComPortAddress
+                ComPort = "Unknown",
                 Type = TypeDevice
             });
         }

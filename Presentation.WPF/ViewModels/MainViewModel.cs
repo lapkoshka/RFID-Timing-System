@@ -48,7 +48,7 @@ namespace Presentation.WPF.ViewModels
 
             _portableReader = new PortableReader();
             _portableReader.ConnectionStatusEvent += ReaderStatusHandler;
-            _portableReader.StartListening();
+            _portableReader.StartConnecting();
         }
 
         public void registrationFinishHandler(object sender, EventArgs e)
