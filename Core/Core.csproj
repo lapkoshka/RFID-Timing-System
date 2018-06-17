@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device\Base\DeviceManager.cs" />
+    <Compile Include="Interfaces\IDeviceManagerEvents.cs" />
+    <Compile Include="Device\Enums.cs" />
     <Compile Include="Device\MainReader.cs" />
     <Compile Include="Device\Classes\DevControl.cs" />
     <Compile Include="Device\PortableReader.cs" />
