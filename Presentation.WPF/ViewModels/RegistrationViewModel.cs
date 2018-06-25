@@ -8,7 +8,6 @@ using System.Windows.Input;
 using Presentation.WPF.ViewModels.Base;
 using Core;
 using System.Diagnostics;
-//using Presentation.WPF.Entities;
 using System.Collections.ObjectModel;
 using Presentation.WPF.Observables;
 
@@ -142,7 +141,8 @@ namespace Presentation.WPF.ViewModels
         public ICommand StartRegistration { get; set; }
         public RegistrationViewModel()
         {
-            StartRegistration = new AutoCanExecuteCommandWrapper(new DelegateCommand(RegistrationStartExecute, RegistrationStartCanExecute));
+            StartRegistration = new AutoCanExecuteCommandWrapper(
+                new DelegateCommand(RegistrationStartExecute, RegistrationStartCanExecute));
             _persons = new ObservableCollection<PersonObservable>();
             _challengeName = "Новое соревнование";
             _challengeDate = DateTime.Now;

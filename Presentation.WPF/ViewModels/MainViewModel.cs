@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Presentation.WPF.ViewModels.Base;
 using Presentation.WPF.Views;
-//using Presentation.WPF.Entities;
 using Presentation.WPF.Observables;
 using System.Windows.Controls.Primitives;
 using Core;
