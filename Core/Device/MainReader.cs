@@ -54,7 +54,7 @@ namespace Core
             });
         }
 
-        public override void StartListening()
+        public override void ListenReader()
         {
             Task.Factory.StartNew(() =>
             {

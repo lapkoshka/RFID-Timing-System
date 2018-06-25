@@ -28,14 +28,6 @@ namespace Presentation.WPF.Views
         {
             InitializeComponent();
             DataContext = new MainViewModel();
-            // manager.ConnectDevice();
-            // manager.TagCatch += manager_tagCatchHandler;
         }
-
-        /*static void manager_tagCatchHandler(object sender, TagCatchEventArgs e)
-        {
-            RFIDTag tag = e.Tag;
-            Console.WriteLine(tag.UID);
-        }*/
     }
 }

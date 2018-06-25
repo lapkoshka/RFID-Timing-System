@@ -1,0 +1,27 @@
+﻿<Page x:Class="Presentation.WPF.Views.RegistrationForm"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Presentation.WPF.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300"
+      Title="RegistrationForm" Height="700" Width="1070">
+
+    <Grid VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Left" Width="116" Content="UID" Margin="10,0,0,0"/>
+            <TextBox Height="25" Margin="0,0,73,0" HorizontalAlignment="Right" Width="226" Text="{Binding TagUid}"/>
+            <Label HorizontalAlignment="Left" Width="116" Content="Фамилия" Margin="10,0,0,0"/>
+            <TextBox Height="25" Margin="0,0,73,0" HorizontalAlignment="Right" Width="226" Text="{Binding LastName}"/>
+            <Label HorizontalAlignment="Left" Width="116" Content="Имя" Margin="10,0,0,0"/>
+            <TextBox Height="25" Margin="0,0,73,0" HorizontalAlignment="Right" Width="226" Text="{Binding FirstName}"/>
+            <Label HorizontalAlignment="Left" Width="116" Content="Отчество" Margin="10,0,0,0"/>
+            <TextBox Height="25" Margin="0,0,73,0" HorizontalAlignment="Right" Width="226" Text="{Binding Patronymic}"/>
+            <Label HorizontalAlignment="Left" Width="116" Content="Класс" Margin="10,0,0,0"/>
+            <TextBox Height="25" Margin="0,0,73,0" HorizontalAlignment="Right" Width="226" Text="{Binding Class}"/>
+            <Button Width="298" Command="{Binding RegisterPerson}">Зарегистрировать</Button>
+            <Button Command="{Binding CancelRegisterPerson}">Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Page>

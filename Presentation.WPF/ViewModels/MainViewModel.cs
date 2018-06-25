@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Presentation.WPF.ViewModels.Base;
 using Presentation.WPF.Views;
+//using Presentation.WPF.Entities;
+using Presentation.WPF.Observables;
+using System.Windows.Controls.Primitives;
 using Core;
+using System.Diagnostics;
+using System.Windows;
 
 namespace Presentation.WPF.ViewModels
 {
@@ -14,8 +19,11 @@ namespace Presentation.WPF.ViewModels
     {
         private MainReader _mainReader;
         private PortableReader _portableReader;
+
         private RegistrationViewModel _registrationViewModel;
         private RegistrationPage _registrationPage;
+        private RegistrationFormViewModel _registrationFormViewModel;
+        private RegistrationForm _registrationForm;
         private Page _activePage;
 
         public Page ActivePage
@@ -36,8 +44,13 @@ namespace Presentation.WPF.ViewModels
         {
             //Инициализация вьюх и моделей
             _registrationViewModel = new RegistrationViewModel();
-            _registrationViewModel.RegistrationFinish += registrationFinishHandler;
+            _registrationViewModel.RegistrationStart += registrationStartHandler;
             _registrationPage = new RegistrationPage() { DataContext = _registrationViewModel };
+
+            _registrationFormViewModel = new RegistrationFormViewModel();
+            _registrationFormViewModel.PersonRegistred += ContestantRegistredHandler;
+            _registrationFormViewModel.CancelPersonRegister += CancelContestantRegisterHandler;
+            _registrationForm = new RegistrationForm() { DataContext = _registrationFormViewModel };
 
             //Меняй это поле для навигации
             ActivePage = _registrationPage;
@@ -51,9 +64,26 @@ namespace Presentation.WPF.ViewModels
             _portableReader.StartConnecting();
         }
 
-        public void registrationFinishHandler(object sender, EventArgs e)
+        public void registrationStartHandler(object sender, EventArgs e)
         {
-            
+            _portableReader.TagCatchEvent += PortableReaderTagCatchHandler;
+            _portableReader.StartListening();
+            MessageBox.Show("Приемник готов считывать метки");
+        }
+
+        public void ContestantRegistredHandler(object sender, EventArgs e)
+        {
+            AddPersonToDataGrid(GetPersonFromLoginForm());
+            ClearLoginForm();
+
+            ActivePage = _registrationPage;
+            _portableReader.StartListening();
+        }
+
+        public void CancelContestantRegisterHandler(object sender, EventArgs e)
+        {
+            ActivePage = _registrationPage;
+            _portableReader.StartListening();
         }
 
         public void ReaderStatusHandler(ConnectionStatusEventArgs args)
@@ -63,30 +93,58 @@ namespace Presentation.WPF.ViewModels
                 _registrationViewModel.MainReaderStatus = args.GetStatusDescription();
                 _registrationViewModel.MainReaderIp = args.GetHumanReadableIp();
 
-                if (args.Status == DeviceStatus.Connected)
-                {
-                    _mainReader.TagCatchEvent += TagCatchHandler;
-                    _mainReader.StartListening();
-                }
+                //if (args.Status == DeviceStatus.Connected)
+                //{
+                   // _mainReader.TagCatchEvent += MainReaderTagCatchHandler;
+                   // _mainReader.StartListening();
+                //}
             }
 
             if (args.Type == DeviceType.PORTABLE)
             {
                 _registrationViewModel.PortableReaderStatus = args.GetStatusDescription();
                 _registrationViewModel.PortableReaderPort = args.GetConnectionPort();
-
-                if (args.Status == DeviceStatus.Connected)
-                {
-                    _portableReader.TagCatchEvent += TagCatchHandler;
-                    _portableReader.StartListening();
-                }
+                _registrationViewModel.PortableReaderDeviceStatus = args.Status;
             }
         }
 
-        public void TagCatchHandler(TagCatchEventArgs args)
+        public void MainReaderTagCatchHandler(TagCatchEventArgs args)
+        {
+            //RFIDTag tag = args.Tag;
+            //Console.WriteLine(tag.UID);
+        }
+
+        public void PortableReaderTagCatchHandler(TagCatchEventArgs args)
         {
             RFIDTag tag = args.Tag;
-            Console.WriteLine(tag.UID);
+            ActivePage = _registrationForm;
+            _registrationFormViewModel.TagUid = tag.UID;
+            _portableReader.StopListening();
+        }
+
+        public void AddPersonToDataGrid(PersonObservable person)
+        {
+            _registrationViewModel.Persons.Add(person);
+        }
+
+        public PersonObservable GetPersonFromLoginForm()
+        {
+            return new PersonObservable()
+            {
+                UID = _registrationFormViewModel.TagUid,
+                FirstName = _registrationFormViewModel.FirstName,
+                LastName = _registrationFormViewModel.LastName,
+                Patronymic = _registrationFormViewModel.Patronymic,
+                Class = _registrationFormViewModel.Class
+            };
+        }
+        public void ClearLoginForm()
+        {
+            _registrationFormViewModel.TagUid = null;
+            _registrationFormViewModel.FirstName = null;
+            _registrationFormViewModel.LastName = null;
+            _registrationFormViewModel.Patronymic = null;
+            _registrationFormViewModel.Class = null;
         }
     }
 }

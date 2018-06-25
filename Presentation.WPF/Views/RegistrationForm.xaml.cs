@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Presentation.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for RegistrationForm.xaml
     /// </summary>
-    public partial class RegistrationPage : Page
+    public partial class RegistrationForm : Page
     {
-        public RegistrationPage()
+        public RegistrationForm()
         {
             InitializeComponent();
         }
