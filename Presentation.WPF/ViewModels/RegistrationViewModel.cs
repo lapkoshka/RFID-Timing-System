@@ -157,7 +157,7 @@ namespace Presentation.WPF.ViewModels
 
         private bool RegistrationStartCanExecute(object param)
         {
-            return PortableReaderDeviceStatus == DeviceStatus.Connected ? true : false;
+            return PortableReaderDeviceStatus == DeviceStatus.Connected;
         }
 
         #endregion

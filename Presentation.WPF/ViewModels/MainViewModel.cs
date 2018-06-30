@@ -60,14 +60,14 @@ namespace Presentation.WPF.ViewModels
 
             _portableReader = new PortableReader();
             _portableReader.ConnectionStatusEvent += ReaderStatusHandler;
+            _portableReader.TagCatchEvent += PortableReaderTagCatchHandler;
             _portableReader.StartConnecting();
         }
 
         public void registrationStartHandler(object sender, EventArgs e)
         {
-            _portableReader.TagCatchEvent += PortableReaderTagCatchHandler;
             _portableReader.StartListening();
-            MessageBox.Show("Приемник готов считывать метки");
+            MessageBox.Show("Регистрация начата. Приложите метку к приемнику.");
         }
 
         public void ContestantRegistredHandler(object sender, EventArgs e)
