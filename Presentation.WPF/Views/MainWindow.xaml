@@ -23,7 +23,7 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
         </Menu>
-        <Frame x:Name="Main" Grid.Row="1" Content="{Binding ActivePage}"></Frame>
+        <Frame x:Name="Main" Grid.Row="1" Content="{Binding ActivePage}" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
 

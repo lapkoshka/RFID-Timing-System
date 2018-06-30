@@ -6,13 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Presentation.WPF.ViewModels.Base;
+using Core;
+using System.Diagnostics;
+using System.Collections.ObjectModel;
+using Presentation.WPF.Observables;
 
 namespace Presentation.WPF.ViewModels
 {
     public class RegistrationViewModel : ObservableObject
     {
 
-        public event EventHandler RegistrationFinish;
+        public event EventHandler RegistrationStart;
 
         #region Properties
 
@@ -106,32 +110,56 @@ namespace Presentation.WPF.ViewModels
             }
         }
 
-        public ICommand CompleteRegistration { get; set; }
+        private DeviceStatus _portableReaderDeviceStatus;
+        public DeviceStatus PortableReaderDeviceStatus
+        {
+            get { return _portableReaderDeviceStatus; }
+            set
+            {
+                if (_portableReaderDeviceStatus != value)
+                {
+                    OnPropertyChanging(() => PortableReaderDeviceStatus);
+                    _portableReaderDeviceStatus = value;
+                    OnPropertyChanged(() => PortableReaderDeviceStatus);
+                }
+            }
+        }
 
+        private ObservableCollection<PersonObservable> _persons;
+        public ObservableCollection<PersonObservable> Persons
+        {
+            get { return _persons; }
+            set
+            {
+                OnPropertyChanging(() => Persons);
+                _persons = value;
+                OnPropertyChanged(() => Persons);
+            }
+        }
         #endregion
 
+        public ICommand StartRegistration { get; set; }
         public RegistrationViewModel()
         {
-            CompleteRegistration = new DelegateCommand(CompleteRegistrationExecute, CompleteRegistrationCanExecute);
+            StartRegistration = new AutoCanExecuteCommandWrapper(
+                new DelegateCommand(RegistrationStartExecute, RegistrationStartCanExecute));
+            _persons = new ObservableCollection<PersonObservable>();
             _challengeName = "Новое соревнование";
             _challengeDate = DateTime.Now;
         }
 
         #region Commands
-        private bool CompleteRegistrationCanExecute(object param)
-        {
-            //Проверь условие и верни может ли выполнятся комманда
-            return true;
-        }
-        private void CompleteRegistrationExecute(object param)
+        private void RegistrationStartExecute(object param)
         {
             EventArgs e = new EventArgs();
-            RegistrationFinish(this, e);
+            RegistrationStart(this, e);
         }
-      
+
+        private bool RegistrationStartCanExecute(object param)
+        {
+            return PortableReaderDeviceStatus == DeviceStatus.Connected;
+        }
 
         #endregion
-
-
     }
 }

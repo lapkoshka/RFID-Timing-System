@@ -27,7 +27,10 @@ namespace Core
         Connected = 0x05,
 
         [Description("Does not connected to reader")]
-        NotConnected = 0x06
+        NotConnected = 0x06,
+
+        [Description("Listening")]
+        Listening = 0x07
     }
 
     public enum ErrorCode : uint

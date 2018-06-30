@@ -15,8 +15,8 @@
             <ColumnDefinition Width="381*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" FontSize="22" Margin="15,0,0,567">Регистрация</TextBlock>
-        <DataGrid Grid.Column="0" Grid.Row="0" Margin="15,38,0,154"></DataGrid>
-        <Button Grid.Column="0" Grid.Row="0" Margin="15,461,0,76" FontSize="16">Начать регистрацию</Button>
+        <DataGrid Grid.Column="0" Grid.Row="0" Margin="15,38,0,154" ItemsSource="{Binding Persons}" />
+        <Button Grid.Column="0" Grid.Row="0" Margin="15,461,0,76" FontSize="16" Command="{Binding StartRegistration}">Начать регистрацию</Button>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150*"/>
@@ -29,8 +29,8 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="7*"/>
-                            <ColumnDefinition Width="65*"/>
-                            <ColumnDefinition Width="72*"/>
+                            <ColumnDefinition Width="79*"/>
+                            <ColumnDefinition Width="58*"/>
 
                         </Grid.ColumnDefinitions>
                         <Ellipse Grid.Column="0" Fill="{Binding MainReaderStatusColor}" HorizontalAlignment="Left" Height="9"  VerticalAlignment="Top" Width="9" Margin="3,9,0,-7"/>
@@ -113,4 +113,5 @@
             Завершить регистрацию
         </Button>
     </Grid>
+
 </Page>

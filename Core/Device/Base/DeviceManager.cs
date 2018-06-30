@@ -17,7 +17,23 @@ namespace Core
 
         public DeviceType TypeDevice { get; protected set; }
 
-        public abstract void StartListening();
+        public void StartListening()
+        {
+            DispatchStatus(DeviceStatus.Listening);
+            shouldListenReader = true;
+            ListenReader();
+        }
+
+        public abstract void ListenReader();
+
+        public void StopListening()
+        {
+            DispatchStatus(DeviceStatus.Connected);
+            shouldListenReader = false;
+            ListenReader();
+        }
+
+
 
         public abstract void DispatchStatus(DeviceStatus status);
 

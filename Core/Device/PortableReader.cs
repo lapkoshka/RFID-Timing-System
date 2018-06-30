@@ -12,6 +12,7 @@ namespace Core
         public override event TagCatchDelegate TagCatchEvent;
         private byte _comAdr = 255;
         private int _comPortIndex = 0;
+        private readonly int _defaultThreadSleepTime = 5;
 
         public PortableReader()
         {
@@ -34,12 +35,13 @@ namespace Core
             });
         }
 
-        public override void StartListening()
+        public override void ListenReader()
         {
             Task.Factory.StartNew(() =>
             {
                 while (shouldListenReader)
                 {
+                    int sleepTime = _defaultThreadSleepTime;
                     byte AdrTID = 0;
                     byte LenTID = 0;
                     byte TIDFlag = 0;
@@ -54,7 +56,9 @@ namespace Core
                         {
                             Tag = tag
                         });
+                        sleepTime = 2000;
                     }
+                    Thread.Sleep(sleepTime);
                 }
             });
         }
