@@ -23,7 +23,7 @@ namespace Core
         {
             Task.Factory.StartNew(() =>
             {
-                DispatchStatus(DeviceStatus.Searching);
+                SetStatus(DeviceStatus.Searching);
 
                 int port = 0;
                 //Как мне использовать говорящие значения из енама?
@@ -31,7 +31,7 @@ namespace Core
                 int OpenResult = ReaderB.StaticClassReaderB.AutoOpenComPort(ref port, ref _comAdr, BaudRate, ref _comPortIndex);
                 DeviceStatus status = OpenResult == 0 ? DeviceStatus.Connected : DeviceStatus.NotFound;
                 //fCmdRet = StaticClassReaderB.GetReaderInformation(ref fComAdr, VersionInfo, ref ReaderType, TrType, ref dmaxfre, ref dminfre, ref powerdBm, ref ScanTime, frmcomportindex);
-                DispatchStatus(status);
+                SetStatus(status);
             });
         }
 
@@ -71,8 +71,9 @@ namespace Core
             return new RFIDTag() { UID = sEPC };
         }
 
-        public override void DispatchStatus(DeviceStatus status)
+        public override void SetStatus(DeviceStatus status)
         {
+            Status = status;
             ConnectionStatusEvent?.Invoke(new ConnectionStatusEventArgs
             {
                 Status = status,

@@ -29,28 +29,28 @@ namespace Core
                 int SearchAttempts = maxSearchAttempts;
                 while (!IsFound && SearchAttempts > 0)
                 {
-                    DispatchStatus(DeviceStatus.Searching);
+                    SetStatus(DeviceStatus.Searching);
                     IsFound = StartBroadcast();
                     SearchAttempts--;
                 }
 
                 if (!IsFound)
                 {
-                    DispatchStatus(DeviceStatus.NotFound);
+                    SetStatus(DeviceStatus.NotFound);
                     return;
                 }
 
-                DispatchStatus(DeviceStatus.Found);
+                SetStatus(DeviceStatus.Found);
                 bool IsConnected = false;
                 int ConnectAttempts = maxConnectAttempts;
                 while (!IsConnected && ConnectAttempts > 0)
                 {
-                    DispatchStatus(DeviceStatus.TryingConnect);
+                    SetStatus(DeviceStatus.TryingConnect);
                     IsConnected = Connect();
                     ConnectAttempts--;
                 }
                 DeviceStatus status = IsConnected ? DeviceStatus.Connected : DeviceStatus.NotConnected;
-                DispatchStatus(status);
+                SetStatus(status);
             });
         }
 
@@ -75,7 +75,7 @@ namespace Core
                     byte TIDFlag = 0;
                     byte Target = 0;
                     byte InAnt = 0x80;
-                    byte Scantime = 20;
+                    byte Scantime = 5;
                     byte FastFlag = 0;
                     byte[] EPC = new byte[50000];
                     byte Ant = 0;
@@ -112,8 +112,9 @@ namespace Core
             });        
         }
 
-        public override void DispatchStatus(DeviceStatus status)
+        public override void SetStatus(DeviceStatus status)
         {
+            Status = status;
             ConnectionStatusEvent?.Invoke(new ConnectionStatusEventArgs()
             {
                 Status = status,

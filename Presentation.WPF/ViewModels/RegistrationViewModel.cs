@@ -17,6 +17,8 @@ namespace Presentation.WPF.ViewModels
     {
 
         public event EventHandler RegistrationStart;
+        public event EventHandler RegistrationFinish;
+
 
         #region Properties
 
@@ -139,10 +141,13 @@ namespace Presentation.WPF.ViewModels
         #endregion
 
         public ICommand StartRegistration { get; set; }
+        public ICommand CompleteRegistration { get; set; }
         public RegistrationViewModel()
         {
             StartRegistration = new AutoCanExecuteCommandWrapper(
                 new DelegateCommand(RegistrationStartExecute, RegistrationStartCanExecute));
+            CompleteRegistration = new AutoCanExecuteCommandWrapper(
+                new DelegateCommand(RegistrationFinishExecute, RegistrationFinishCanExecute));
             _persons = new ObservableCollection<PersonObservable>();
             _challengeName = "Новое соревнование";
             _challengeDate = DateTime.Now;
@@ -158,6 +163,17 @@ namespace Presentation.WPF.ViewModels
         private bool RegistrationStartCanExecute(object param)
         {
             return PortableReaderDeviceStatus == DeviceStatus.Connected;
+        }
+
+        private void RegistrationFinishExecute(object param)
+        {
+            EventArgs e = new EventArgs();
+            RegistrationFinish(this, e);
+        }
+
+        private bool RegistrationFinishCanExecute(object param)
+        {
+            return true;
         }
 
         #endregion

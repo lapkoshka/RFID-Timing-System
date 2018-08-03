@@ -110,7 +110,7 @@
                 Margin="40,463,10,78" 
                 FontSize="16"
                 Command="{Binding Path=CompleteRegistration}" CommandParameter="{Binding}">
-            Завершить регистрацию
+            Начать соревнование
         </Button>
     </Grid>
 

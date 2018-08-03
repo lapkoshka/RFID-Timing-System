@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 
 namespace Presentation.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for RegistrationPage.xaml
+    /// Interaction logic for RacePage.xaml
     /// </summary>
-    public partial class RegistrationPage : Page
+    public partial class RacePage : Page
     {
-        public RegistrationPage()
+        public RacePage()
         {
             InitializeComponent();
         }

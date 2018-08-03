@@ -12,6 +12,7 @@ namespace Core
         public readonly int maxSearchAttempts = 5;
         public readonly int maxConnectAttempts = 5;
         public bool shouldListenReader = true;
+        public DeviceStatus Status { get; protected set; }
 
         public uint Ip { get; protected set; }
 
@@ -19,7 +20,7 @@ namespace Core
 
         public void StartListening()
         {
-            DispatchStatus(DeviceStatus.Listening);
+            SetStatus(DeviceStatus.Listening);
             shouldListenReader = true;
             ListenReader();
         }
@@ -28,14 +29,12 @@ namespace Core
 
         public void StopListening()
         {
-            DispatchStatus(DeviceStatus.Connected);
+            SetStatus(DeviceStatus.Connected);
             shouldListenReader = false;
             ListenReader();
         }
 
-
-
-        public abstract void DispatchStatus(DeviceStatus status);
+        public abstract void SetStatus(DeviceStatus status);
 
         public abstract void StartConnecting();
     }

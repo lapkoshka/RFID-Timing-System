@@ -72,12 +72,18 @@
     <Compile Include="ViewModels\Base\ObservableObject.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Observables\PersonObservable.cs" />
+    <Compile Include="ViewModels\Observables\RankingObservables.cs" />
+    <Compile Include="ViewModels\RacePageViewModel.cs" />
     <Compile Include="ViewModels\RegistrationFormViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\RacePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RegistrationForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,6 +94,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\RacePage.xaml.cs">
+      <DependentUpon>RacePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegistrationForm.xaml.cs">
       <DependentUpon>RegistrationForm.xaml</DependentUpon>
     </Compile>

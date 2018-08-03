@@ -23,6 +23,8 @@ namespace Presentation.WPF.ViewModels
         private RegistrationPage _registrationPage;
         private RegistrationFormViewModel _registrationFormViewModel;
         private RegistrationForm _registrationForm;
+        private RacePageViewModel _racePageViewModel;
+        private RacePage _racePage;
         private Page _activePage;
 
         public Page ActivePage
@@ -44,6 +46,7 @@ namespace Presentation.WPF.ViewModels
             //Инициализация вьюх и моделей
             _registrationViewModel = new RegistrationViewModel();
             _registrationViewModel.RegistrationStart += registrationStartHandler;
+            _registrationViewModel.RegistrationFinish += registrationFinishHandler;
             _registrationPage = new RegistrationPage() { DataContext = _registrationViewModel };
 
             _registrationFormViewModel = new RegistrationFormViewModel();
@@ -51,11 +54,18 @@ namespace Presentation.WPF.ViewModels
             _registrationFormViewModel.CancelPersonRegister += CancelContestantRegisterHandler;
             _registrationForm = new RegistrationForm() { DataContext = _registrationFormViewModel };
 
+            _racePageViewModel = new RacePageViewModel();
+            _racePageViewModel.RaceStart += raceStartHandler;
+            _racePage = new RacePage() { DataContext = _racePageViewModel };
+
+            
+
             //Меняй это поле для навигации
             ActivePage = _registrationPage;
 
             _mainReader = new MainReader();
             _mainReader.ConnectionStatusEvent += ReaderStatusHandler;
+            _mainReader.TagCatchEvent += MainReaderTagCatchHandler;
             _mainReader.StartConnecting();
 
             _portableReader = new PortableReader();
@@ -68,6 +78,26 @@ namespace Presentation.WPF.ViewModels
         {
             _portableReader.StartListening();
             MessageBox.Show("Регистрация начата. Приложите метку к приемнику.");
+        }
+
+        public void raceStartHandler(object sender, EventArgs e)
+        {
+            if (_mainReader.Status == DeviceStatus.Connected)
+            {
+                _mainReader.StartListening();
+                MessageBox.Show("PONESLAS");
+            }
+            else
+            {
+                MessageBox.Show("Сначала подключите приемник");
+            }
+            
+        }
+
+        public void registrationFinishHandler(object sender, EventArgs e)
+        {
+            _portableReader.StopListening();
+            ActivePage = _racePage;
         }
 
         public void ContestantRegistredHandler(object sender, EventArgs e)
@@ -91,12 +121,6 @@ namespace Presentation.WPF.ViewModels
             {
                 _registrationViewModel.MainReaderStatus = args.GetStatusDescription();
                 _registrationViewModel.MainReaderIp = args.GetHumanReadableIp();
-
-                //if (args.Status == DeviceStatus.Connected)
-                //{
-                   // _mainReader.TagCatchEvent += MainReaderTagCatchHandler;
-                   // _mainReader.StartListening();
-                //}
             }
 
             if (args.Type == DeviceType.PORTABLE)
@@ -109,8 +133,8 @@ namespace Presentation.WPF.ViewModels
 
         public void MainReaderTagCatchHandler(TagCatchEventArgs args)
         {
-            //RFIDTag tag = args.Tag;
-            //Console.WriteLine(tag.UID);
+            RFIDTag tag = args.Tag;
+            Console.WriteLine(tag.UID);
         }
 
         public void PortableReaderTagCatchHandler(TagCatchEventArgs args)
